@@ -1,0 +1,74 @@
+{
+	"service1": {
+		"name": "Valens FW Loader started",
+		"line": "Started \"Valens VA6000 firmware loader\"."
+  },
+	"service2": {
+		"name": "Ramses Connection Manager running",
+		"line": "Started \"Provide N/W and Data Status to IGCA\"."
+  },
+	"service3": {
+		"name": "Subscription Manager started",
+		"line": "Started \"Subscription Manager\"."
+  },
+	"service4": {
+		"name": "IGCA started",
+		"line": "Started IGCA Service."
+  },
+	"service5": {
+		"name": "APN2/B2B connected",
+		"line": "InterfaceName: rmnet_data0, DataCallStatus: CONNECTED (connected)"
+  },
+	"service6": {
+		"name": "APN3/B2C connected",
+		"line": "InterfaceName: rmnet_data1, DataCallStatus: CONNECTED (connected)"
+  },
+	"service7": {
+		"name": "Valens/HDBaseT Connection to HU established",
+		"line": ": HDBT Link: UP"
+  },
+	"service8": {
+		"name": "IGCA WCC TCP Connection to HU",
+		"line": "IGCA bool igca::CWccConnectionHandler::connectSocket(): Successfully connected to HU"
+  },
+	"service9": {
+		"name": "APN2 IGCA WCC Connect Request",
+		"line": "INPUT from HU: Connection Request   APN2 Connect"
+  },
+	"service10": {
+		"name": "APN3 IGCA WCC Connect Request",
+		"line": "INPUT from HU: Connection Request   APN3 Connect"
+  },
+	"service11": {
+		"name": "APN2 IGCA Connected",
+		"line": "OUTPUT to  HU: Connection Status    APN2 Connected"
+  },
+	"service12": {
+		"name": "APN3 IGCA Connected",
+		"line": "OUTPUT to  HU: Connection Status    APN3 Connected"
+  },
+  "service13": {
+  	"name": "ECall Available",
+  	"line": "finalizeInitialization:waitVal:0"
+  },
+  "service14": {
+  	"name": "Remote Diagnostics Available",
+  	"line": "Started DRT Remote Diagnosis Application"
+  },
+   "service15": {
+  	"name": "Diagnostics Available",
+  	"line": "Started DRT Software Diagnosis"
+  },
+   "service16": {
+  	"name": "SWL-App",
+  	"line": "on_swlmgr_service_ready_clbk:Calling SWL init"
+  },
+	"service17": {
+  		"name": "Enda Signal Discovery Completed",
+		"line": "startup synchronization is completed"
+  },
+   "service18": {
+  	 "name": "Real Time Monitoring Started",
+  	 "line": "rtmMain::main:start main loop"
+	}
+}
