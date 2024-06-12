@@ -1,0 +1,848 @@
+[
+    {
+        "signalGroupId": 1,
+        "purposeIds": [
+            1
+        ],
+        "changed": true,
+        "permanentTracking": true,
+        "indicateTracking": false,
+        "stateSync": [
+            {
+                "gvnOn": true,
+                "ignitionState": [
+                    0
+                ],
+                "timeFiltered": 0,
+                "cycleTime": 1000
+            },
+            {
+                "gvnOn": true,
+                "ignitionState": [
+                    1
+                ],
+                "timeFiltered": 0,
+                "cycleTime": 1000
+            },
+            {
+                "gvnOn": true,
+                "ignitionState": [
+                    2
+                ],
+                "timeFiltered": 0,
+                "cycleTime": 1000
+            },
+            {
+                "gvnOn": true,
+                "ignitionState": [
+                    4
+                ],
+                "timeFiltered": 0,
+                "cycleTime": 1000
+            },
+            {
+                "gvnOn": true,
+                "ignitionState": [
+                    5
+                ],
+                "timeFiltered": 0,
+                "cycleTime": 1000
+            }
+        ],
+        "signalConfigs": [
+            {
+                "name": "I.V_GNSS_Lat",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "I.V_GNSS_Long",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "I.V_GNSS_Head",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.VehSpd_Disp_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.ISw_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.Odo_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_SOC_Disp_Rq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.TPA_BMS_CU_RTM_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.BrkPdl_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.BrkTrq_D_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_PT_Rdy_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_Gr_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_AccelPdlPosn_D_Raw_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_EngStartPN14_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_EngRPM_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_TC_LiquidFuelCons_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_TC_ElecEnergyCons_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCDCConv_Md_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_Mach_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_Mach_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_Temp_Invrt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_Temp_Invrt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_Temp_Stator_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_Temp_Stator_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_RPM_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_RPM_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_Trq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_Trq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_DC_Volt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_DC_Volt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_DC_Curr_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_DC_Curr_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_PlugInHyb_OprtnMd_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.ESP_Sys_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCDCConv_Md_Rq_Dsabl_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCDCConv_Off_Temp_Excess_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCDCConv_Temp_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_TC_ElecEnergyRng_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_VEPM_ChrgSrc_Type_Disp_Rq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_CondChrgEngyFlw_Disp_Rq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_IndChrgEngyFlw_Disp_Rq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_OBChrg_Md_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCB_Md_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_OBChrg_Chrg_LED_Rq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DC_Chrg_LED_Rq_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_OBChrg_EVSE_Flt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCB_EVSE_Flt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_OBChrg_Flt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCB_Flt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCB_EVSE_Prtcl_Err_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_DCB_EVSE_Cert_Err_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_HV_Sys_Flt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_Temp_Stator_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_Temp_Stator_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_Temp_Invrt_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_Temp_Invrt_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_RPM_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_RPM_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV1_DC_Curr_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_RTM_INV2_DC_Curr_Warn_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_PTCoor_PT_Style_Axle_F_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PT4_PTCoor_PT_Style_Axle_R_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.Incl_X_Num_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.EAC_HV_PNHV_Curr_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.EAC_HV_PNHV_Volt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PTC_HV_PNHV_Curr_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.PTC_HV_PNHV_Volt_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.Impact_X_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "I.PNC_11",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "I.PNC_11",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "I.PNC_00",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            },
+            {
+                "name": "10.THC_PreCond_Act_Stat_ST3",
+                "transmissionTrigger": false,
+                "cyclicTransmission": true,
+                "historization": false,
+                "filter": [
+                    {
+                        "sna": true
+                    }
+                ]
+            }
+        ],
+        "appId": 50
+    }
+]
