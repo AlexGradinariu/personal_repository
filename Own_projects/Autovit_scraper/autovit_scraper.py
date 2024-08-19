@@ -81,10 +81,10 @@ def sort_vehicles(list_of_items):
     return sorted_filtered_vehicles
 
 def iterage_throug_all_site_pages():
-    print(f'Found a total number of {total_number_of_pages} of autovit ads !')
-    for page_num in range(1, total_number_of_pages + 1):
+    print(f'Found a total number of {no_of_site_pages_with_ads} of autovit ads !')
+    for page_num in range(1, no_of_site_pages_with_ads + 1):
         page_url = f"{autovit_site}?page={page_num}"
-        print(f"Scraping page {page_num} of {total_number_of_pages}")
+        print(f"Scraping page {page_num} of {no_of_site_pages_with_ads}")
         page_soup_session = get_url_info(page_url)
         car_listings = get_car_details(page_soup_session)
         all_car_listings.extend(car_listings)
@@ -94,10 +94,24 @@ def create_excel_file(data):
     df.to_excel(r'E:\GIT_HUB\Personal_Repo\Own_projects\Excel.xlsx',index=False)
 
 
+def send_notification(message):
+    token = "aqioije5jiex877tdp7fbbvhhd5eeh"
+    user_key = "unjez5wivue53eb7ekfhyxrcxvavm6"
+
+    url = "https://api.pushover.net/1/messages.json"
+    data = {
+        "token": token,
+        "user": user_key,
+        "message": message
+    }
+
+    requests.post(url, data=data)
+
 if __name__ == "__main__":
     autovit_site = 'https://www.autovit.ro/autoturisme/volkswagen/passat'
     all_car_listings = []
-    soup_session = get_url_info(autovit_site)
-    total_number_of_pages = get_total_pages(soup_session)
+    request_session = get_url_info(autovit_site)
+    no_of_site_pages_with_ads = get_total_pages(request_session)
     iterage_throug_all_site_pages()
-    create_excel_file(sort_vehicles(all_car_listings))
+    create_excel_file(sorted_vehicles := sort_vehicles(all_car_listings))
+    send_notification(f"Number of vehicles found: {len(sorted_vehicles)}")
