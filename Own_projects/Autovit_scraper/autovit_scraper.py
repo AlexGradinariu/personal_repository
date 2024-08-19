@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
+import pandas as pd
 
 def get_url_info(url):
     html_text = requests.get(url)
@@ -78,6 +78,20 @@ def sort_vehicles(list_of_items):
     for vehicle in sorted_filtered_vehicles:
         print(vehicle)
     print(f'{len(sorted_filtered_vehicles)} Vehicles found matching your filters !')
+    return sorted_filtered_vehicles
+
+def iterage_throug_all_site_pages():
+    print(f'Found a total number of {total_number_of_pages} of autovit ads !')
+    for page_num in range(1, total_number_of_pages + 1):
+        page_url = f"{autovit_site}?page={page_num}"
+        print(f"Scraping page {page_num} of {total_number_of_pages}")
+        page_soup_session = get_url_info(page_url)
+        car_listings = get_car_details(page_soup_session)
+        all_car_listings.extend(car_listings)
+
+def create_excel_file(data):
+    df = pd.DataFrame(data)
+    df.to_excel(r'E:\GIT_HUB\Personal_Repo\Own_projects\Excel.xlsx',index=False)
 
 
 if __name__ == "__main__":
@@ -85,12 +99,5 @@ if __name__ == "__main__":
     all_car_listings = []
     soup_session = get_url_info(autovit_site)
     total_number_of_pages = get_total_pages(soup_session)
-    print(f'Found a total number of {total_number_of_pages} of autovit ads !')
-    for page_num in range(1,  total_number_of_pages + 1):
-        page_url = f"{autovit_site}?page={page_num}"
-        print(f"Scraping page {page_num} of {total_number_of_pages}")
-        page_soup_session = get_url_info(page_url)
-        car_listings = get_car_details(page_soup_session)
-        all_car_listings.extend(car_listings)
-    sort_vehicles(all_car_listings)
-    # print(len(all_car_listings))
+    iterage_throug_all_site_pages()
+    create_excel_file(sort_vehicles(all_car_listings))
