@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-autovit_site = 'https://www.autovit.ro/autoturisme/volkswagen/passat'
 
 def get_url_info(url):
     html_text = requests.get(url)
@@ -29,22 +28,27 @@ def get_car_details(soup):
         mileage_tag = ad.find('dd', {'data-parameter': 'mileage'})
         if mileage_tag:
             mileage = mileage_tag.get_text(strip=True)
-            car_data['KM'] = mileage
+            mileage_cleaned = ''.join(filter(str.isdigit, mileage))
+            car_data['KM'] = int(mileage_cleaned)
         else:
             car_data['KM'] = 'None'
         #Extract year
         year_tag = ad.find('dd', {'data-parameter': 'year'})
         if year_tag:
-            year = year_tag.get_text(strip=True)
+            year = int(year_tag.get_text(strip=True))
             car_data['Year'] = year
         else:
-            car_data['Year'] = 'None'
+            car_data['Year'] = 0
         #Extract price
         price_tag = ad.find('h3',class_='efpuxbr16 ooa-1n2paoq er34gjf0')
         if price_tag:
-            car_data['Price'] = price_tag.get_text(strip=True)
+            # Remove any non-numeric characters (like spaces, commas, or currency symbols)
+            price_text = price_tag.get_text(strip=True)
+            # Remove any non-numeric characters (like spaces, commas, or currency symbols)
+            price_text_cleaned = ''.join(filter(str.isdigit, price_text)) #takes two arguments and return true of false '1' will be kepr, 'E'  will be removed
+            car_data['Price'] = int(price_text_cleaned)
         else:
-            car_data['Price'] = 'None'
+            car_data['Price'] = 0
 
         car_listings.append(car_data)
         #Extract Fuel type
@@ -54,9 +58,6 @@ def get_car_details(soup):
             car_data['Fuel'] = fuel
         else:
             car_data['Fuel'] = 'None'
-
-    for item in car_listings:
-        print(item['Price'])
     return car_listings
 
 def get_total_pages(soup):
@@ -66,8 +67,30 @@ def get_total_pages(soup):
         return int(pages[-2].get_text().strip())  # Get the second last item as it contains the total pages
     return 1
 
+def sort_vehicles(list_of_items):
+    min_year = 2019
+    min_price = 18000
+    max_price = 20000
+    max_km = 100000
+    filtered_vehicles = [vehicle for vehicle in list_of_items if vehicle['Year'] >= min_year and min_price <= vehicle['Price'] <= max_price and vehicle['KM'] <= max_km]
+    # Sort the filtered vehicles by year (ascending) and then by price (ascending)
+    sorted_filtered_vehicles = sorted(filtered_vehicles, key=lambda x: (x['Year'], x['Price']))
+    for vehicle in sorted_filtered_vehicles:
+        print(vehicle)
+    print(f'{len(sorted_filtered_vehicles)} Vehicles found matching your filters !')
+
 
 if __name__ == "__main__":
-    soup_info = get_url_info(autovit_site)
-    total_pages = get_total_pages(soup_info)
-    get_car_details(soup_info)
+    autovit_site = 'https://www.autovit.ro/autoturisme/volkswagen/passat'
+    all_car_listings = []
+    soup_session = get_url_info(autovit_site)
+    total_number_of_pages = get_total_pages(soup_session)
+    print(f'Found a total number of {total_number_of_pages} of autovit ads !')
+    for page_num in range(1,  total_number_of_pages + 1):
+        page_url = f"{autovit_site}?page={page_num}"
+        print(f"Scraping page {page_num} of {total_number_of_pages}")
+        page_soup_session = get_url_info(page_url)
+        car_listings = get_car_details(page_soup_session)
+        all_car_listings.extend(car_listings)
+    sort_vehicles(all_car_listings)
+    # print(len(all_car_listings))
