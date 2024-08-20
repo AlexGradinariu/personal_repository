@@ -80,10 +80,10 @@ def sort_vehicles(list_of_items):
     print(f'{len(sorted_filtered_vehicles)} Vehicles found matching your filters !')
     return sorted_filtered_vehicles
 
-def iterage_throug_all_site_pages():
+def iterage_throug_all_site_pages(web_site):
     print(f'Found a total number of {no_of_site_pages_with_ads} of autovit ads !')
     for page_num in range(1, no_of_site_pages_with_ads + 1):
-        page_url = f"{autovit_site}?page={page_num}"
+        page_url = f"{web_site}?page={page_num}"
         print(f"Scraping page {page_num} of {no_of_site_pages_with_ads}")
         page_soup_session = get_url_info(page_url)
         car_listings = get_car_details(page_soup_session)
@@ -108,10 +108,13 @@ def send_notification(message):
     requests.post(url, data=data)
 
 if __name__ == "__main__":
-    autovit_site = 'https://www.autovit.ro/autoturisme/volkswagen/passat'
+    cars_to_find = ['/volkswagen/passat','/skoda/superb']
+    base_url = 'https://www.autovit.ro/autoturisme'
+    autovit_site = [base_url + item for item in cars_to_find]
     all_car_listings = []
-    request_session = get_url_info(autovit_site)
-    no_of_site_pages_with_ads = get_total_pages(request_session)
-    iterage_throug_all_site_pages()
+    for web_site in autovit_site:
+        request_session = get_url_info(web_site)
+        no_of_site_pages_with_ads = get_total_pages(request_session)
+        iterage_throug_all_site_pages(web_site)
     create_excel_file(sorted_vehicles := sort_vehicles(all_car_listings))
     send_notification(f"Number of vehicles found: {len(sorted_vehicles)}")
