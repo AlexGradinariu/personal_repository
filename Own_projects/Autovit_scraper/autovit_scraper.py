@@ -15,7 +15,7 @@ def get_url_info(url):
 
 def get_car_details(soup):
     car_listings = []
-    soup_session = soup.find_all('section', class_='ooa-qat6iw efpuxbr1')
+    soup_session = soup.find_all('article', class_='ooa-yca59n efpuxbr0')
     for ad in soup_session:
         car_data = {}
         # Extract the car name
@@ -49,8 +49,6 @@ def get_car_details(soup):
             car_data['Price'] = int(price_text_cleaned)
         else:
             car_data['Price'] = 0
-
-        car_listings.append(car_data)
         #Extract Fuel type
         fuel_tag = ad.find('dd', {'data-parameter': 'fuel_type'})
         if fuel_tag:
@@ -58,6 +56,13 @@ def get_car_details(soup):
             car_data['Fuel'] = fuel
         else:
             car_data['Fuel'] = 'None'
+        #Extract ad unique id
+        unique_id = ad.get('data-id')
+        if unique_id:
+            car_data['Unique_id'] = unique_id
+        else:
+            car_data['Unique_id'] = 0
+        car_listings.append(car_data)
     return car_listings
 
 def get_total_pages(soup):
@@ -75,23 +80,23 @@ def sort_vehicles(list_of_items):
     filtered_vehicles = [vehicle for vehicle in list_of_items if vehicle['Year'] >= min_year and min_price <= vehicle['Price'] <= max_price and vehicle['KM'] <= max_km]
     # Sort the filtered vehicles by year (ascending) and then by price (ascending)
     sorted_filtered_vehicles = sorted(filtered_vehicles, key=lambda x: (x['Year'], x['Price']))
-    for vehicle in sorted_filtered_vehicles:
-        print(vehicle)
+    # for vehicle in sorted_filtered_vehicles:
+    #     print(vehicle)
     print(f'{len(sorted_filtered_vehicles)} Vehicles found matching your filters !')
     return sorted_filtered_vehicles
 
 def iterage_throug_all_site_pages(web_site):
-    print(f'Found a total number of {no_of_site_pages_with_ads} of autovit ads !')
+    print(f'Found a total number of {no_of_site_pages_with_ads} of autovit ads for {web_site}!')
     for page_num in range(1, no_of_site_pages_with_ads + 1):
         page_url = f"{web_site}?page={page_num}"
-        print(f"Scraping page {page_num} of {no_of_site_pages_with_ads}")
+        print(f"Scraping page {page_num} of {web_site}")
         page_soup_session = get_url_info(page_url)
         car_listings = get_car_details(page_soup_session)
         all_car_listings.extend(car_listings)
 
-def create_excel_file(data):
+def create_excel_file(data,excel):
     df = pd.DataFrame(data)
-    df.to_excel(r'E:\GIT_HUB\Personal_Repo\Own_projects\Excel.xlsx',index=False)
+    df.to_excel(excel,index=False)
 
 
 def send_notification(message):
@@ -107,14 +112,23 @@ def send_notification(message):
 
     requests.post(url, data=data)
 
+def get_car_id(excel):
+    data = pd.read_excel(excel)
+    df = data['Unique_id']
+    print(df.values)
+
+
 if __name__ == "__main__":
-    cars_to_find = ['/volkswagen/passat','/skoda/superb']
-    base_url = 'https://www.autovit.ro/autoturisme'
-    autovit_site = [base_url + item for item in cars_to_find]
-    all_car_listings = []
-    for web_site in autovit_site:
-        request_session = get_url_info(web_site)
-        no_of_site_pages_with_ads = get_total_pages(request_session)
-        iterage_throug_all_site_pages(web_site)
-    create_excel_file(sorted_vehicles := sort_vehicles(all_car_listings))
-    send_notification(f"Number of vehicles found: {len(sorted_vehicles)}")
+    excel_file = r'E:\GIT_HUB\automotive_repo\Own_projects\Autovit_scraper\Excel.xlsx'
+    # cars_to_find = ['/skoda/superb']
+    # base_url = 'https://www.autovit.ro/autoturisme'
+    # autovit_site = [base_url + item for item in cars_to_find]
+    # all_car_listings = []
+    # for web_site in autovit_site:
+    #     request_session = get_url_info(web_site)
+    #     no_of_site_pages_with_ads = get_total_pages(request_session)
+    #     iterage_throug_all_site_pages(web_site)
+    # create_excel_file(sorted_vehicles := sort_vehicles(all_car_listings), excel_file)
+    # send_notification(f"Number of vehicles found: {len(sorted_vehicles)}")
+    get_car_id(excel_file)
+
