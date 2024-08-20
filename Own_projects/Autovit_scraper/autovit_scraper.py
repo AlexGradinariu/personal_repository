@@ -99,11 +99,16 @@ def create_excel_file(data,excel):
     df.to_excel(excel,index=False)
 
 
-def send_notification(message):
+def send_notification(cars):
     token = "aqioije5jiex877tdp7fbbvhhd5eeh"
     user_key = "unjez5wivue53eb7ekfhyxrcxvavm6"
 
     url = "https://api.pushover.net/1/messages.json"
+    car_urls = {}
+    for item in cars:
+        car_urls[item['Title']] = item['url']
+    message = (f"Number of vehicles found: {len(sorted_vehicles)}\n"
+                f"Car links : {car_urls}")
     data = {
         "token": token,
         "user": user_key,
@@ -115,20 +120,23 @@ def send_notification(message):
 def get_car_id(excel):
     data = pd.read_excel(excel)
     df = data['Unique_id']
-    print(df.values)
-
+    if not df.empty:
+        return list(df)
+    else:
+        return 0
 
 if __name__ == "__main__":
     excel_file = r'E:\GIT_HUB\automotive_repo\Own_projects\Autovit_scraper\Excel.xlsx'
-    # cars_to_find = ['/skoda/superb']
-    # base_url = 'https://www.autovit.ro/autoturisme'
-    # autovit_site = [base_url + item for item in cars_to_find]
-    # all_car_listings = []
-    # for web_site in autovit_site:
-    #     request_session = get_url_info(web_site)
-    #     no_of_site_pages_with_ads = get_total_pages(request_session)
-    #     iterage_throug_all_site_pages(web_site)
-    # create_excel_file(sorted_vehicles := sort_vehicles(all_car_listings), excel_file)
-    # send_notification(f"Number of vehicles found: {len(sorted_vehicles)}")
-    get_car_id(excel_file)
+    cars_to_find = ['/skoda/superb','/volkswagen/passat']
+    base_url = 'https://www.autovit.ro/autoturisme'
+    autovit_site = [base_url + item for item in cars_to_find]
+    all_car_listings = []
+    for web_site in autovit_site:
+        request_session = get_url_info(web_site)
+        no_of_site_pages_with_ads = get_total_pages(request_session)
+        iterage_throug_all_site_pages(web_site)
+    create_excel_file(sorted_vehicles := sort_vehicles(all_car_listings), excel_file)
+    known_vehicles = get_car_id(excel_file)
+    send_notification(sorted_vehicles)
+
 
