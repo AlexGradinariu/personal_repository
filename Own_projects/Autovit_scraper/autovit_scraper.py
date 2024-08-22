@@ -120,7 +120,6 @@ def handle_excel_data_sheet(data, excel):
             merged_df['Price_Decreased'] = merged_df['Price_new'] < merged_df['Price_old']
             # Filter rows where the price has decreased
             price_decreased_df = merged_df[merged_df['Price_Decreased'] == True]
-            price_decreased_df.to_excel(r'E:\GIT_HUB\automotive_repo\Own_projects\Autovit_scraper\Excel_decreased.xlsx')
             if not price_decreased_df.empty:
                 print('Price decreases found:')
                 # Optionally, update the known_df with the new (decreased) prices
@@ -136,10 +135,11 @@ def handle_excel_data_sheet(data, excel):
             print("Empty DF !")
     else:
         print("Excel file not existing,creating now...")
-        new_cars_notif = dict(pd.iloc[:, :2].values)
-        send_notification('New cars found :', new_cars_notif)
         new_df = pd.DataFrame(data)
+        new_cars_notif = dict(new_df.iloc[:, :2].values)
         new_df.to_excel(excel, index=False)
+        send_notification('New cars found :', new_cars_notif)
+
 
 def send_notification(notification,cars):
     token = "aqioije5jiex877tdp7fbbvhhd5eeh"
@@ -159,7 +159,7 @@ def send_notification(notification,cars):
 if __name__ == "__main__":
     while True:
         id_column_title = 'Unique_id'
-        Excel_sheet_location = r'E:\GIT_HUB\automotive_repo\Own_projects\Autovit_scraper\Excel.xlsx'
+        Excel_sheet_location = r'D:\github\automotive_work\Own_projects\Autovit_scraper\Excel.xlsx'
         cars_to_find = ['/volkswagen/passat','/volkswagen/tiguan','/skoda/superb','/audi/a6']
         autovit_site = ['https://www.autovit.ro/autoturisme' + item for item in cars_to_find]
         all_car_listings = []
@@ -168,5 +168,5 @@ if __name__ == "__main__":
             no_of_site_pages_with_ads = get_total_pages_of_an_ad(request_session)
             iterage_throug_ad_pages(web_site)
         handle_excel_data_sheet(sorted_vehicles := filter_and_sort_function(all_car_listings), Excel_sheet_location)
-        print('Waiting 20 seconds till next iteration ...')
+        print('Waiting 2h till next iteration ...')
         time.sleep(7200)

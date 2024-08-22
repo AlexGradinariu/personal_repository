@@ -22,9 +22,9 @@ def get_loto_numbers(soup):
     combined_list = no_intregi + no_impare
     final_values = [int(td.text) for td in combined_list]
     counted_values = Counter(final_values)
-    # count_15 =counting_values[15]
+    # count_15 =counted_values[15]
     # print(count_15)
-    most_common = [num for num, count in counted_values.most_common(20)]
+    most_common = [num for num, count in counted_values.most_common(30)]
     suggested_pick = random.sample(most_common, 6)
     return suggested_pick
 
