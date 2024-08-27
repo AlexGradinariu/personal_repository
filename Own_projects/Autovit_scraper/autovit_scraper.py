@@ -75,10 +75,10 @@ def get_total_pages_of_an_ad(soup):
     return 1
 
 def filter_and_sort_function(list_of_items):
-    min_year = 2019
-    min_price = 18000
-    max_price = 20000
-    max_km = 100000
+    min_year = 2022
+    min_price = 7000
+    max_price = 10500
+    max_km = 50000
     filtered_vehicles = [vehicle for vehicle in list_of_items if vehicle['Year'] >= min_year and min_price <= vehicle['Price'] <= max_price and vehicle['KM'] <= max_km]
     # Sort the filtered vehicles by year (ascending) and then by price (ascending)
     sorted_filtered_vehicles = sorted(filtered_vehicles, key=lambda x: (x['Year'], x['Price']))
@@ -159,8 +159,8 @@ def send_notification(notification,cars):
 if __name__ == "__main__":
     while True:
         id_column_title = 'Unique_id'
-        Excel_sheet_location = r'D:\github\automotive_work\Own_projects\Autovit_scraper\Excel.xlsx'
-        cars_to_find = ['/volkswagen/passat','/volkswagen/tiguan','/skoda/superb','/audi/a6']
+        Excel_sheet_location = r'./Excel.xlsx'
+        cars_to_find = ['/dacia/spring']
         autovit_site = ['https://www.autovit.ro/autoturisme' + item for item in cars_to_find]
         all_car_listings = []
         for web_site in autovit_site:
@@ -169,4 +169,4 @@ if __name__ == "__main__":
             iterage_throug_ad_pages(web_site)
         handle_excel_data_sheet(sorted_vehicles := filter_and_sort_function(all_car_listings), Excel_sheet_location)
         print('Waiting 2h till next iteration ...')
-        time.sleep(7200)
+        time.sleep(10000)
