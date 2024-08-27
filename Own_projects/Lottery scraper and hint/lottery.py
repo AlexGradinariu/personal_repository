@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 from collections import Counter
 import random
+from datetime import datetime
+from datetime import date
+import time
 def create_request_session(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -41,8 +44,22 @@ def send_notification(message):
     }
     requests.post(url, data=data)
 
+def get_day_of_week():
+    today = date.today().weekday()
+    now = int(datetime.now().strftime('%H'))
+    if (today == 2 or today == 5) and now >= 18:
+        return True
+    else:
+        return False
 
 if __name__ == '__main__':
     url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
-    soup = create_request_session(url)
-    send_notification(get_loto_numbers(soup))
+    while True:
+        if bool(get_day_of_week()):
+            soup = create_request_session(url)
+            send_notification(get_loto_numbers(soup))
+            print('Notification sent, waiting 50 hours till next check !')
+            time.sleep(175000)
+        else:
+            print('Not there yet,waiting 1 more hour !')
+            time.sleep(3600)
