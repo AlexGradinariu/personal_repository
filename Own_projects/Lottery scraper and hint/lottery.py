@@ -30,6 +30,18 @@ def get_loto_numbers(soup_request):
     #         while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
     #             result.append(sibling.text)
     #             sibling = sibling.find_next_sibling()
+def get_loto_numbers(soup):
+    year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
+                 'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
+    result = []
+    date_cells = soup.find_all('td', class_=['odd','even'], nowrap=True)
+    for item in date_cells:
+        if 'noiembrie ' in item.text:
+            sibling = item.find_next_sibling()
+            while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
+                result.append(sibling.text)
+                sibling = sibling.find_next_sibling()
+
     year_dict = {key: [] for key in year_dict.keys()}
     for item in date_cells:
         for key in year_dict.keys():
@@ -39,7 +51,7 @@ def get_loto_numbers(soup_request):
                     year_dict[key].append(sibling.text)
                     sibling = sibling.find_next_sibling()
     for month in year_dict.keys():
-        year_dict[month] = split_into_group_of_no(year_dict[month])
+        year_dict[month]= split_into_group_of_no(year_dict[month])
     return year_dict
 
 def send_notification(message):
@@ -91,7 +103,6 @@ if __name__ == '__main__':
     url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
     soup = create_request_session(url)
     lotto_number_dict = get_loto_numbers(soup)
-    print(lotto_number_dict)
     check_missing_numbers(lotto_number_dict,'ianuarie','februarie')
     # send_notification(get_loto_numbers(soup))
     # while True:
