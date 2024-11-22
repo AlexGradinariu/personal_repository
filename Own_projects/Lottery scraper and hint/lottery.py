@@ -19,7 +19,6 @@ def create_request_session(url):
         print(f'Error: {html_text.status_code}')
         return 0
 
-<<<<<<< HEAD
 def get_loto_numbers(soup_request):
     year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
                  'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
@@ -31,7 +30,7 @@ def get_loto_numbers(soup_request):
     #         while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
     #             result.append(sibling.text)
     #             sibling = sibling.find_next_sibling()
-=======
+
 def get_loto_numbers(soup):
     year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
                  'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
@@ -43,7 +42,7 @@ def get_loto_numbers(soup):
             while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
                 result.append(sibling.text)
                 sibling = sibling.find_next_sibling()
->>>>>>> 6d114aa22e2058e6aa5679b74ab33561ab4a159a
+
     year_dict = {key: [] for key in year_dict.keys()}
     for item in date_cells:
         for key in year_dict.keys():
@@ -53,11 +52,7 @@ def get_loto_numbers(soup):
                     year_dict[key].append(sibling.text)
                     sibling = sibling.find_next_sibling()
     for month in year_dict.keys():
-<<<<<<< HEAD
         year_dict[month] = split_into_group_of_no(year_dict[month])
-=======
-        year_dict[month]= split_into_group_of_no(year_dict[month])
->>>>>>> 6d114aa22e2058e6aa5679b74ab33561ab4a159a
     return year_dict
 
 def send_notification(message):
@@ -85,7 +80,7 @@ def split_into_group_of_no(list_of_no:list):
     batch_size = 6
     return [list_of_no[i:i+batch_size] for i in range(0, len(list_of_no), batch_size)]
 
-<<<<<<< HEAD
+
 def check_missing_numbers(dictionary:dict,*months):
     all_numbers = [x for x in range(1, 50)]
     missing_numbers = set()
@@ -104,70 +99,11 @@ def check_missing_numbers(dictionary:dict,*months):
     # a = [['27', '11', '49', '47', '28', '26'], ['24', '34', '36', '6', '39', '41']]
     # missing_element = any("1" in item for item in a)
     # print(missing_element)
-
-
 if __name__ == '__main__':
     url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
     soup = create_request_session(url)
     lotto_number_dict = get_loto_numbers(soup)
-    print(lotto_number_dict)
-    check_missing_numbers(lotto_number_dict,'ianuarie','februarie')
-=======
-
-import numpy as np
-from sklearn.linear_model import LinearRegression
-
-
-# Step 1: Prepare the Data
-def prepare_data(year_dict):
-    # Flatten all batches from all months into a single list
-    all_numbers = []
-    for month_batches in year_dict.values():
-        for batch in month_batches:
-            all_numbers.extend(map(int, batch))  # Convert strings to integers
-
-    # Create sliding window sequences
-    X, y = [], []
-    batch_size = 6
-    for i in range(len(all_numbers) - batch_size * 2 + 1):
-        X.append(all_numbers[i:i + batch_size])  # Input batch
-        y.append(all_numbers[i + batch_size:i + batch_size * 2])  # Output batch
-
-    return np.array(X), np.array(y)
-
-
-# Step 2: Train the Model
-def train_model(X, y):
-    model = LinearRegression()
-    model.fit(X, y)
-    return model
-
-
-# Step 3: Predict the Next Batch
-def predict_next_batch(model, last_batch):
-    last_batch = np.array(last_batch).reshape(1, -1)  # Reshape to match input format
-    return model.predict(last_batch).flatten()
-
-
-# Load the data
-X, y = prepare_data(year_dict)
-
-# Train the model
-model = train_model(X, y)
-
-# Use the last batch of data to predict the next batch
-last_batch = X[-1]  # Take the last batch from the training data
-predicted_next_batch = predict_next_batch(model, last_batch)
-
-# Display Results
-print("Last Batch:", last_batch)
-print("Predicted Next Batch:", predicted_next_batch.round().astype(int))
-
-if __name__ == '__main__':
-    url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
-    soup = create_request_session(url)
-    get_loto_numbers(soup)
->>>>>>> 6d114aa22e2058e6aa5679b74ab33561ab4a159a
+    check_missing_numbers(lotto_number_dict, 'ianuarie', 'februarie')
     # send_notification(get_loto_numbers(soup))
     # while True:
     #     if bool(get_day_of_week()):
@@ -178,7 +114,7 @@ if __name__ == '__main__':
     #     else:
     #         print('Not there yet,waiting 1 more hour !')
     #         time.sleep(3600)
-<<<<<<< HEAD
+
 
 
 
@@ -230,5 +166,3 @@ if __name__ == '__main__':
 # # Display Results
 # print("Last Batch:", last_batch)
 # print("Predicted Next Batch:", predicted_next_batch.round().astype(int))
-=======
->>>>>>> 6d114aa22e2058e6aa5679b74ab33561ab4a159a
