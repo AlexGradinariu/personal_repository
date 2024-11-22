@@ -19,6 +19,7 @@ def create_request_session(url):
         print(f'Error: {html_text.status_code}')
         return 0
 
+
 def get_loto_numbers(soup_request):
     year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
                  'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
@@ -30,6 +31,7 @@ def get_loto_numbers(soup_request):
     #         while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
     #             result.append(sibling.text)
     #             sibling = sibling.find_next_sibling()
+
 def get_loto_numbers(soup):
     year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
                  'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
@@ -51,7 +53,7 @@ def get_loto_numbers(soup):
                     year_dict[key].append(sibling.text)
                     sibling = sibling.find_next_sibling()
     for month in year_dict.keys():
-        year_dict[month]= split_into_group_of_no(year_dict[month])
+        year_dict[month] = split_into_group_of_no(year_dict[month])
     return year_dict
 
 def send_notification(message):
@@ -90,13 +92,6 @@ def check_missing_numbers(dictionary:dict,*months):
         if element_to_find not in extracted_numbers:
             missing_numbers.add(element_to_find)
     print(f'In months {[x for x in months]},following numbers were NOT extracted: {[y for y in missing_numbers]}')
-                # missing_element = any(x in item for item in numbers)
-            # missing_numbers =
-            # if missing_numbers:
-            #     print(f'Missing numbers in {month} : {missing_numbers}')
-    # a = [['27', '11', '49', '47', '28', '26'], ['24', '34', '36', '6', '39', '41']]
-    # missing_element = any("1" in item for item in a)
-    # print(missing_element)
 
 
 if __name__ == '__main__':
@@ -114,9 +109,7 @@ if __name__ == '__main__':
     #     else:
     #         print('Not there yet,waiting 1 more hour !')
     #         time.sleep(3600)
-
-
-
+#
 # import numpy as np
 # from sklearn.linear_model import LinearRegression
 #
