@@ -20,16 +20,27 @@ def create_request_session(url):
         return 0
 
 def get_loto_numbers(soup):
-    no_intregi = soup.find_all('td', class_='even_rounded')
-    no_impare = soup.find_all('td', class_='odd_rounded')
-    combined_list = no_intregi + no_impare
-    final_values = [int(td.text) for td in combined_list]
-    counted_values = Counter(final_values)
-    # count_15 =counted_values[15]
-    # print(count_15)
-    most_common = [num for num, count in counted_values.most_common(30)]
-    suggested_pick = random.sample(most_common, 6)
-    return suggested_pick
+    year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
+                 'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
+    result = []
+    date_cells = soup.find_all('td', class_=['odd','even'], nowrap=True)
+    for item in date_cells:
+        if 'noiembrie ' in item.text:
+            sibling = item.find_next_sibling()
+            while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
+                result.append(sibling.text)
+                sibling = sibling.find_next_sibling()
+    year_dict = {key: [] for key in year_dict.keys()}
+    for item in date_cells:
+        for key in year_dict.keys():
+            if key in item.text:
+                sibling = item.find_next_sibling()
+                while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
+                    year_dict[key].append(sibling.text)
+                    sibling = sibling.find_next_sibling()
+    for month in year_dict.keys():
+        year_dict[month]= split_into_group_of_no(year_dict[month])
+    return year_dict
 
 def send_notification(message):
     token = "aqioije5jiex877tdp7fbbvhhd5eeh"
@@ -52,14 +63,71 @@ def get_day_of_week():
     else:
         return False
 
+def split_into_group_of_no(list_of_no:list):
+    batch_size = 6
+    return [list_of_no[i:i+batch_size] for i in range(0, len(list_of_no), batch_size)]
+
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+
+# Step 1: Prepare the Data
+def prepare_data(year_dict):
+    # Flatten all batches from all months into a single list
+    all_numbers = []
+    for month_batches in year_dict.values():
+        for batch in month_batches:
+            all_numbers.extend(map(int, batch))  # Convert strings to integers
+
+    # Create sliding window sequences
+    X, y = [], []
+    batch_size = 6
+    for i in range(len(all_numbers) - batch_size * 2 + 1):
+        X.append(all_numbers[i:i + batch_size])  # Input batch
+        y.append(all_numbers[i + batch_size:i + batch_size * 2])  # Output batch
+
+    return np.array(X), np.array(y)
+
+
+# Step 2: Train the Model
+def train_model(X, y):
+    model = LinearRegression()
+    model.fit(X, y)
+    return model
+
+
+# Step 3: Predict the Next Batch
+def predict_next_batch(model, last_batch):
+    last_batch = np.array(last_batch).reshape(1, -1)  # Reshape to match input format
+    return model.predict(last_batch).flatten()
+
+
+# Load the data
+X, y = prepare_data(year_dict)
+
+# Train the model
+model = train_model(X, y)
+
+# Use the last batch of data to predict the next batch
+last_batch = X[-1]  # Take the last batch from the training data
+predicted_next_batch = predict_next_batch(model, last_batch)
+
+# Display Results
+print("Last Batch:", last_batch)
+print("Predicted Next Batch:", predicted_next_batch.round().astype(int))
+
 if __name__ == '__main__':
     url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
-    while True:
-        if bool(get_day_of_week()):
-            soup = create_request_session(url)
-            send_notification(get_loto_numbers(soup))
-            print('Notification sent, waiting 50 hours till next check !')
-            time.sleep(175000)
-        else:
-            print('Not there yet,waiting 1 more hour !')
-            time.sleep(3600)
+    soup = create_request_session(url)
+    get_loto_numbers(soup)
+    # send_notification(get_loto_numbers(soup))
+    # while True:
+    #     if bool(get_day_of_week()):
+    #         soup = create_request_session(url)
+    #         send_notification(get_loto_numbers(soup))
+    #         print('Notification sent, waiting 50 hours till next check !')
+    #         time.sleep(175000)
+    #     else:
+    #         print('Not there yet,waiting 1 more hour !')
+    #         time.sleep(3600)
