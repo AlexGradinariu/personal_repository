@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import locale
 from collections import Counter
 import random
 from datetime import datetime
@@ -19,31 +20,10 @@ def create_request_session(url):
         print(f'Error: {html_text.status_code}')
         return 0
 
-
-def get_loto_numbers(soup_request):
-    year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
-                 'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
-    date_cells = soup_request.find_all('td', class_=['odd','even'], nowrap=True)
-    # result = []
-    # for item in date_cells:
-    #     if 'noiembrie ' in item.text:
-    #         sibling = item.find_next_sibling()
-    #         while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
-    #             result.append(sibling.text)
-    #             sibling = sibling.find_next_sibling()
-
 def get_loto_numbers(soup):
     year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
                  'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
-    result = []
     date_cells = soup.find_all('td', class_=['odd','even'], nowrap=True)
-    for item in date_cells:
-        if 'noiembrie ' in item.text:
-            sibling = item.find_next_sibling()
-            while sibling and sibling.get('class') in [['odd_rounded'], ['even_rounded']]:
-                result.append(sibling.text)
-                sibling = sibling.find_next_sibling()
-
     year_dict = {key: [] for key in year_dict.keys()}
     for item in date_cells:
         for key in year_dict.keys():
@@ -61,7 +41,7 @@ def send_notification(message):
     user_key = "unjez5wivue53eb7ekfhyxrcxvavm6"
 
     url = "https://api.pushover.net/1/messages.json"
-    message = f"Sugestie de bilet loto: {message}"
+    message = f"Loto: {message}"
     data = {
         "token": token,
         "user": user_key,
@@ -81,7 +61,7 @@ def split_into_group_of_no(list_of_no:list):
     batch_size = 6
     return [list_of_no[i:i+batch_size] for i in range(0, len(list_of_no), batch_size)]
 
-def check_missing_numbers(dictionary:dict,*months):
+def check_missing_numbers(dictionary:dict,months):
     all_numbers = [x for x in range(1, 50)]
     missing_numbers = set()
     extracted_numbers = []
@@ -92,14 +72,43 @@ def check_missing_numbers(dictionary:dict,*months):
         if element_to_find not in extracted_numbers:
             missing_numbers.add(element_to_find)
     print(f'In months {[x for x in months]},following numbers were NOT extracted: {[y for y in missing_numbers]}')
+    return missing_numbers
 
+def check_most_common_numbers(lotto_number_dict):
+    all_values = []
+    for value in lotto_number_dict.values():
+        for sublist in value:
+            if isinstance(sublist,list):
+                all_values.extend(sublist)
+            else:
+                print("Unexpected Data Format:", sublist)
+    all_values = [int(item) for item in all_values]
+    counter = Counter(all_values)
+    print(f"Most common used numbers: {counter.most_common(6)}")
+    print(f"Least common used numbers: {counter.most_common()[:-6:-1]}")
+    return counter.most_common(6),counter.most_common()[:-6:-1]
+
+def current_month():
+    locale.setlocale(locale.LC_TIME, "ro_RO.UTF-8")
+    current_month = datetime.now().month
+    current_year = datetime.now().year
+    previous_month = current_month - 1 if current_month > 1 else 12
+    current_month_name = datetime.now().strftime("%B")
+    previous_month_name = datetime(current_year, previous_month, 1).strftime("%B")
+    return [previous_month_name,current_month_name]
 
 if __name__ == '__main__':
-    url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
+    url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2025'
     soup = create_request_session(url)
     lotto_number_dict = get_loto_numbers(soup)
-    check_missing_numbers(lotto_number_dict,'ianuarie','februarie')
-    # send_notification(get_loto_numbers(soup))
+    months = current_month()
+    missing_numbers = check_missing_numbers(lotto_number_dict,current_month())
+    most_common,less_common = check_most_common_numbers(lotto_number_dict)
+    message = (f"In months {list(months)}, following numbers were NOT extracted: {list(missing_numbers)}\n"
+           f"Most common used numbers: {most_common}\n"
+           f"Least common used numbers: {less_common}")
+    send_notification(message)
+    '''Cele mai extrase, nu se mai pun ,ex 23 nu se pune '''
     # while True:
     #     if bool(get_day_of_week()):
     #         soup = create_request_session(url)
@@ -109,52 +118,3 @@ if __name__ == '__main__':
     #     else:
     #         print('Not there yet,waiting 1 more hour !')
     #         time.sleep(3600)
-#
-# import numpy as np
-# from sklearn.linear_model import LinearRegression
-#
-#
-# # Step 1: Prepare the Data
-# def prepare_data(year_dict):
-#     # Flatten all batches from all months into a single list
-#     all_numbers = []
-#     for month_batches in year_dict.values():
-#         for batch in month_batches:
-#             all_numbers.extend(map(int, batch))  # Convert strings to integers
-#
-#     # Create sliding window sequences
-#     X, y = [], []
-#     batch_size = 6
-#     for i in range(len(all_numbers) - batch_size * 2 + 1):
-#         X.append(all_numbers[i:i + batch_size])  # Input batch
-#         y.append(all_numbers[i + batch_size:i + batch_size * 2])  # Output batch
-#
-#     return np.array(X), np.array(y)
-#
-#
-# # Step 2: Train the Model
-# def train_model(X, y):
-#     model = LinearRegression()
-#     model.fit(X, y)
-#     return model
-#
-#
-# # Step 3: Predict the Next Batch
-# def predict_next_batch(model, last_batch):
-#     last_batch = np.array(last_batch).reshape(1, -1)  # Reshape to match input format
-#     return model.predict(last_batch).flatten()
-#
-#
-# # Load the data
-# X, y = prepare_data(year_dict)
-#
-# # Train the model
-# model = train_model(X, y)
-#
-# # Use the last batch of data to predict the next batch
-# last_batch = X[-1]  # Take the last batch from the training data
-# predicted_next_batch = predict_next_batch(model, last_batch)
-#
-# # Display Results
-# print("Last Batch:", last_batch)
-# print("Predicted Next Batch:", predicted_next_batch.round().astype(int))
