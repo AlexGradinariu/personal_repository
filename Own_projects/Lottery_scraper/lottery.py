@@ -89,12 +89,23 @@ def check_most_common_numbers(lotto_number_dict):
     return counter.most_common(6),counter.most_common()[:-6:-1]
 
 def current_month():
-    locale.setlocale(locale.LC_TIME, "ro_RO.UTF-8")
+    romanian_months = {
+    1: "Ianuarie",
+    2: "Februarie",
+    3: "Martie",
+    4: "Aprilie",
+    5: "Mai",
+    6: "Iunie",
+    7: "Iulie",
+    8: "August",
+    9: "Septembrie",
+    10: "Octombrie",
+    11: "Noiembrie",
+    12: "Decembrie"}
     current_month = datetime.now().month
-    current_year = datetime.now().year
     previous_month = current_month - 1 if current_month > 1 else 12
-    current_month_name = datetime.now().strftime("%B")
-    previous_month_name = datetime(current_year, previous_month, 1).strftime("%B")
+    current_month_name = romanian_months[current_month].lower()
+    previous_month_name = romanian_months[previous_month].lower()
     return [previous_month_name,current_month_name]
 
 if __name__ == '__main__':
