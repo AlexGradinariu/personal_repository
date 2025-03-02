@@ -103,9 +103,10 @@ def current_month():
     11: "Noiembrie",
     12: "Decembrie"}
     current_month = datetime.now().month
-    previous_month = current_month - 1 if current_month > 1 else 12
-    current_month_name = romanian_months[current_month].lower()
-    previous_month_name = romanian_months[previous_month].lower()
+    previous = current_month -1
+    before_previous_month = current_month - 2 if current_month > 1 else 12
+    current_month_name = romanian_months[previous].lower()
+    previous_month_name = romanian_months[before_previous_month].lower()
     return [previous_month_name,current_month_name]
 
 if __name__ == '__main__':
