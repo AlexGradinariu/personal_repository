@@ -1,11 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
-import locale
+from itertools import combinations
 from collections import Counter
-import random
 from datetime import datetime
 from datetime import date
-import time
+
 def create_request_session(url):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -85,8 +84,8 @@ def check_most_common_numbers(lotto_number_dict):
     all_values = [int(item) for item in all_values]
     counter = Counter(all_values)
     print(f"Most common used numbers: {counter.most_common(6)}")
-    print(f"Least common used numbers: {counter.most_common()[:-6:-1]}")
-    return counter.most_common(6),counter.most_common()[:-6:-1]
+    print(f"Least common used numbers: {counter.most_common()[:-10:-1]}")
+    return counter.most_common(6),counter.most_common()[:-10:-1]
 
 def current_month():
     romanian_months = {
@@ -109,24 +108,55 @@ def current_month():
     previous_month_name = romanian_months[before_previous_month].lower()
     return [previous_month_name,current_month_name]
 
+def merge_dictionraies_lists(*dicts):
+    merged_data = {}
+    for data in dicts:
+        for month, draws in data.items():
+            merged_data.setdefault(month, []).extend(draws)
+    return merged_data
+
+def check_combinations(*lists,dataset:dict):
+    uncommon = []
+    full_combo = []
+    intersection_numbers = []
+    for item in lists:
+        for subitem in item:
+            if isinstance(subitem,tuple):
+                uncommon.append(subitem[0])
+            if isinstance(subitem,int):
+                uncommon.append(subitem)
+    for month, draws_list in dataset.items():
+        for draw in draws_list:
+            draw_numbers = set(map(int,draw))
+            for combo in combinations(uncommon, 6):
+                combo = set(map(int,combo))
+                if combo.issubset(draw_numbers):
+                    full_combo.append(combo)
+                common_elements = combo.intersection(draw_numbers)
+                if len(common_elements) >= 3:
+                                intersection_numbers.append(common_elements)
+                                # print(f"Found common elements: {common_elements} in combo {combo} and draw {draw_numbers}")
+    unique_sets = set(map(frozenset, intersection_numbers))
+    partial_combo = [set(item) for item in unique_sets]
+    return partial_combo,full_combo
+
 if __name__ == '__main__':
     url = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2025'
+    url_2024 = 'http://noroc-chior.ro/Loto/6-din-49/arhiva-rezultate.php?Y=2024'
     soup = create_request_session(url)
+    soup_2024 = create_request_session(url_2024)
     lotto_number_dict = get_loto_numbers(soup)
+    lotto_number_dict_2024 = get_loto_numbers(soup_2024)
     months = current_month()
     missing_numbers = check_missing_numbers(lotto_number_dict,current_month())
     most_common,less_common = check_most_common_numbers(lotto_number_dict)
+    merged_dictionaries = merge_dictionraies_lists(lotto_number_dict,lotto_number_dict_2024)
+    combinatii_partiale, combinatii_totale = (check_combinations(missing_numbers,less_common,dataset=merged_dictionaries))
     message = (f"In months {list(months)}, following numbers were NOT extracted: {list(missing_numbers)}\n"
            f"Most common used numbers: {most_common}\n"
-           f"Least common used numbers: {less_common}")
+           f"Least common used numbers: {less_common}\n"
+           f"Full combo: {combinatii_totale}")
+    partial_combos = f"Partial combo: {combinatii_partiale}"
     send_notification(message)
+    send_notification(partial_combos)
     '''Cele mai extrase, nu se mai pun ,ex 23 nu se pune '''
-    # while True:
-    #     if bool(get_day_of_week()):
-    #         soup = create_request_session(url)
-    #         send_notification(get_loto_numbers(soup))
-    #         print('Notification sent, waiting 50 hours till next check !')
-    #         time.sleep(175000)
-    #     else:
-    #         print('Not there yet,waiting 1 more hour !')
-    #         time.sleep(3600)
