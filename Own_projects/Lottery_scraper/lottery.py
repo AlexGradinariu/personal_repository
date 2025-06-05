@@ -20,7 +20,7 @@ def create_request_session(url):
         return 0
 
 def get_loto_numbers(soup):
-    year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '', 'iulie': '', 'august': '',
+    year_dict = {'ianuarie': '', 'februarie': '', 'martie': '', 'aprilie': '','mai':'','iunie':'', 'iulie': '', 'august': '',
                  'septembrie': '', 'octombrie': '', 'noiembrie': '', 'decembrie': ''}
     date_cells = soup.find_all('td', class_=['odd','even'], nowrap=True)
     year_dict = {key: [] for key in year_dict.keys()}
