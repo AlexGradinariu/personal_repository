@@ -68,7 +68,7 @@ def send_notification(message):
         "user": user_key,
         "message": message
     }
-    requests.post(url, data=data,verify=False)
+    requests.post(url, data=data)
 
 if __name__ == "__main__":
     # Call the function to get current weather
