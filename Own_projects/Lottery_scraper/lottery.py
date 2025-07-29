@@ -159,4 +159,20 @@ if __name__ == '__main__':
     partial_combos = f"Partial combo: {combinatii_partiale}"
     send_notification(message)
     send_notification(partial_combos)
+
     '''Cele mai extrase, nu se mai pun ,ex 23 nu se pune '''
+    all_numbers = Counter()
+    historical_draws = []
+    for items,values in lotto_number_dict.items():
+        for item in values:
+            all_numbers.update(item)
+            historical_draws.append(item)
+    top_16 = [num for num, _ in all_numbers.most_common(16)]
+    top_16_set = set(top_16)
+
+    def covered(draw, base_set, threshold=3):
+        return len(set(draw) & base_set) >= threshold
+    #
+    coverage_count = sum(covered(draw, top_16_set) for draw in historical_draws)
+    send_notification(f"Top 16 Numbers: {sorted(top_16)}")
+    print(f"Draws Covered (3 matches): {coverage_count} out of {len(historical_draws)}")
