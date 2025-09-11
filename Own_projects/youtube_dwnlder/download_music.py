@@ -1,11 +1,12 @@
 import os
 import yt_dlp
-
+import itertools
 
 
 def download_youtube_mp3(url, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     ydl_opts = {
+        "ignoreerrors": True,
         "format": "bestaudio/best",
         "outtmpl": os.path.join(output_dir, "%(title)s.%(ext)s"),
         "postprocessors": [
@@ -15,8 +16,11 @@ def download_youtube_mp3(url, output_dir):
         ],
         "writethumbnail": True,
     }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+    except Exception as e:
+        print(f"❌ Error downloading {url}: {e}")
 
 def process_requests(file_path):
     if not os.path.exists(file_path):
@@ -42,6 +46,10 @@ def process_requests(file_path):
             print("No URLs to process.")
 
 if __name__ == "__main__":
-    REQUEST_FILE = r"E:\test.txt"
-    LIBRARY_DIR = r"E:\youtube_music"
-    process_requests(REQUEST_FILE)
+    # REQUEST_FILE = r"E:\test.txt"
+    # LIBRARY_DIR = r"E:\youtube_music"
+    # process_requests(REQUEST_FILE)
+    url = input('Enter YouTube URL: ')
+    download_youtube_mp3(url, r"E:\youtube_music\Petrecere")
+
+
