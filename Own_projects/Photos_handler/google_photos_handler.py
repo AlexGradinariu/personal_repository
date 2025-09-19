@@ -71,7 +71,7 @@ def change_files_wiwthout_json(path):
                                 print(e)
 
 def move_pictures_in_batxches(path):
-    batch_size = 5000
+    batch_size = 10000
     all_photos = []
     for root,dirs,files in os.walk(path):
         for directory in dirs:
@@ -95,13 +95,15 @@ def move_pictures_in_batxches(path):
 
 # change_date_format_if_files_with_json(r"E:\google_photos")
 # rename files files
-# unzip_photo_archives(r"E:\google_photos")
+unzip_photo_archives(r"E:\google_photos")
 # change_files_wiwthout_json(r"E:\google_photos")
-# move_pictures_in_batxches(r"E:\google_photos")
+move_pictures_in_batxches(r"E:\google_photos")
 
 def move_videos(path):
     video_extensions = ('.mp4', '.mov', '.avi', '.mkv')
     destination = os.path.join(path, "videos")
+    if not os.path.exists(destination):
+        os.makedirs(destination,exist_ok=True)
     for root, dirs, files in os.walk(path):
         for dir in dirs:
             if dir.startswith("Photos from"):
@@ -111,10 +113,10 @@ def move_videos(path):
                         src_path = os.path.join(dir_path, file)
                         print(f"Moving video {src_path} to {destination}")
                         try:
-                            shutil.move(src_path, destination)
+                            shutil.copy(src_path, destination)
                         except Exception as e:
                             print(f"Error moving file {src_path}: {e}")
 
 
 
-# move_videos(r"E:\google_photos")
+move_videos(r"E:\google_photos")
