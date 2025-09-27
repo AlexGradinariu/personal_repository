@@ -8,7 +8,6 @@ def process_requests(file_path, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     with open(file_path, "r+") as f:
         lines = f.readlines()
-        print(lines)
         f.seek(0)
         f.truncate(0)
 
@@ -18,14 +17,14 @@ def process_requests(file_path, output_dir):
                 if isinstance(url, str) and 'youtu' in url:
                     print('valid url found, downloading...')
                     cmd = [
-                        "./yt-dlp",  # path to the yt-dlp binary you downloaded
+                        "/mnt/Torrents/Plex_Media/youtube/yt-dlp",  # path to the yt-dlp binary you downloaded
                         "-f", "140",
                         "--extract-audio",
                         "--audio-format", "mp3",
                         "--audio-quality", "192K",
                         "--add-metadata",
                         "--embed-thumbnail",
-                        "--ffmpeg-location", "./ffmpeg",
+                        "--ffmpeg-location", "/mnt/Torrents/Plex_Media/youtube/ffmpeg",
                         "--ignore-errors",
                         "-o", f"{output_dir}/%(title)s.%(ext)s",
                         url]
