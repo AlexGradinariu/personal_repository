@@ -19,7 +19,7 @@ def process_requests(file_path, output_dir):
                     print('valid url found, downloading...')
                     cmd = [
                         "./yt-dlp",  # path to the yt-dlp binary you downloaded
-                        "-f", "bestaudio",
+                        "-f", "140",
                         "--extract-audio",
                         "--audio-format", "mp3",
                         "--audio-quality", "192K",

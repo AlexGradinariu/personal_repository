@@ -7,7 +7,7 @@ def download_youtube_mp3(url, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     ydl_opts = {
         "ignoreerrors": True,
-        "format": "bestaudio/best",
+        "format": "140",
         "outtmpl": os.path.join(output_dir, "%(title)s.%(ext)s"),
         "postprocessors": [
             {"key": "FFmpegExtractAudio", "preferredcodec": "mp3", "preferredquality": "192"},
