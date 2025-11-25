@@ -6,13 +6,10 @@ def check_subtitle_files(directory):
     sub_files = []
     subtitle_extensions = ('.srt', '.sub')
     if os.path.exists(directory):
-        for root,dirs,files in os.walk(directory):
-            for directory in dirs:
-                base_dir = os.path.join(root,directory)
-                for file in os.listdir(base_dir):
-                    if file.lower().endswith(subtitle_extensions):
-                        file_path = os.path.join(base_dir, file)
-                        sub_files.append(file_path)
+        for root,_, filename in os.walk(directory):
+            for file in filename:
+                if file.lower().endswith(subtitle_extensions):
+                    sub_files.append(os.path.join(root, file))
     return sub_files
 
 def replace_broken_letter(subs_files: list):
@@ -38,6 +35,7 @@ def replace_broken_letter(subs_files: list):
                 print(f"No broken letters found in file {file}")
         except Exception as e:
             print(f"Error processing file {file}: {e}")
+
 if __name__=="__main__":
     directory = input("Enter the directory path: ")
     files = check_subtitle_files(directory)
