@@ -1,3 +1,4 @@
+import time
 import zipfile
 import json
 import re
@@ -93,12 +94,6 @@ def move_pictures_in_batxches(path):
             shutil.move(f, dst_path)
         print(f"Moved batch {batch_num} ({len(files[i:i + batch_size])} files)")
 
-# change_date_format_if_files_with_json(r"E:\google_photos")
-# rename files files
-unzip_photo_archives(r"E:\google_photos")
-# change_files_wiwthout_json(r"E:\google_photos")
-move_pictures_in_batxches(r"E:\google_photos")
-
 def move_videos(path):
     video_extensions = ('.mp4', '.mov', '.avi', '.mkv')
     destination = os.path.join(path, "videos")
@@ -117,6 +112,19 @@ def move_videos(path):
                         except Exception as e:
                             print(f"Error moving file {src_path}: {e}")
 
-
-
-move_videos(r"E:\google_photos")
+def remove_json(path):
+    print('running remove json files')
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file.endswith(".json"):
+                file = os.path.join(root,file)
+                os.remove(file)
+if __name__ == "__main__":
+    # change_date_format_if_files_with_json(r"E:\google_photos")
+    # rename files files
+    unzip_photo_archives(r"E:\google_photos")
+    time.sleep(5)
+    # change_files_wiwthout_json(r"E:\google_photos")
+    # move_pictures_in_batxches(r"E:\google_photos")
+    #move_videos(r"E:\google_photos")
+    remove_json(r"E:\google_photos")
