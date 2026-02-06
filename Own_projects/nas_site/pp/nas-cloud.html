@@ -2,35 +2,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Private Cloud & Self-Hosting</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NAS Setup Details</title>
-  <link href="styles.css" rel="stylesheet">
+  <meta name="description" content="Secure NAS setup and backup solutions for home users. Protect your photos, videos, and documents with a private home server.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
-<body class="bg-gray-900 text-white">
-  <header class="max-w-6xl mx-auto px-6 py-6">
-    <h1 class="text-4xl font-bold mb-4">NAS Setup Process</h1>
-    <p class="text-gray-400 mb-8">
-      Here’s a step-by-step overview of how I will configure your home NAS securely.
-    </p>
-  </header>
+<body class="bg-gray-900 text-gray-200">
 
-  <section class="max-w-6xl mx-auto px-6 py-12 space-y-6">
-    <div>
-      <h2 class="text-2xl font-semibold mb-2">Step 1: Needs Assessment</h2>
-      <p class="text-gray-400">We discuss your storage requirements, backup frequency, and devices.</p>
-    </div>
-    <div>
-      <h2 class="text-2xl font-semibold mb-2">Step 2: Secure Configuration</h2>
-      <p class="text-gray-400">I install and configure your NAS, set up user accounts, permissions, and secure access.</p>
-    </div>
-    <div>
-      <h2 class="text-2xl font-semibold mb-2">Step 3: Testing & Handover</h2>
-      <p class="text-gray-400">Everything is tested, and you are guided on using your NAS safely.</p>
-    </div>
-  </section>
+<header class="relative overflow-hidden px-6 md:px-12 pt-10 pb-28">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800"></div>
 
-  <footer class="max-w-6xl mx-auto px-6 py-12 text-gray-500">
-    &copy; 2026 Your Name
-  </footer>
+  <div class="relative max-w-6xl mx-auto">
+    <!-- Back link -->
+    <a href="index.html" class="text-blue-400 hover:underline">
+      &larr; Back to Home
+    </a>
+
+    <!-- Main content grid -->
+    <div class="mt-14 grid md:grid-cols-[1fr_1.2fr] gap-16 items-start">
+
+      <!-- Left content -->
+      <div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">
+          Setup Your Private Cloud
+        </h1>
+
+        <ul class="space-y-4 text-gray-400 text-base md:text-lg mb-10">
+          <li>• Nextcloud - App installation and configuration</li>
+          <li>• Immich - Photo app installation and configuration</li>
+          <li>• Docker - App installation and configuration</li>
+          <li>• TailScale - VPN Client installation and configuration</li>
+          <li>• Vaultwarden - For you most secret stuff</li>
+        </ul>
+
+        <a
+          href="mailto:gradinariu.alexandru@live.com"
+          class="inline-block bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-semibold shadow-lg shadow-blue-600/20 transition"
+        >
+          Apply
+        </a>
+      </div>
+
+      <!-- Right content -->
+      <div class="relative">
+        <!-- Image -->
+        <div class="relative flex justify-center md:justify-end">
+          <div class="absolute -inset-6 bg-blue-500/10 blur-3xl rounded-full"></div>
+          <img
+            src="assets/cloud_immich.jpg"
+            alt="Immich Photo app"
+            class="relative w-full max-w-[560px] md:max-w-[660px] lg:max-w-[740px] rounded-2xl border border-gray-700 shadow-2xl shadow-black/60 transition-transform duration-500 hover:scale-[1.03]"
+          />
+        </div>
+
+        <!-- Cards -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4 justify-items-center">
+
+          <!-- Card 1 -->
+          <a
+            href="https://immich.app/"
+            target="_blank"
+            class="md:col-span-2 w-full sm:w-40 md:w-44 bg-gray-800 rounded-2xl shadow-lg shadow-black/40 overflow-hidden hover:shadow-blue-500/20 hover:scale-105 transition-transform"
+          >
+            <div class="h-32 md:h-36 flex items-center justify-center p-2">
+              <img src="assets/icons/immich.jpg" alt="Immich Photo App" class="max-h-full object-contain rounded-lg">
+            </div>
+            <div class="text-center bg-black/50 text-white py-1 font-semibold text-sm">
+              Immich Photo App
+            </div>
+          </a>
+
+          <!-- Card 2 -->
+          <a
+            href="https://nextcloud.com/"
+            target="_blank"
+            class="md:col-span-2 w-full sm:w-40 md:w-44 bg-gray-800 rounded-2xl shadow-lg shadow-black/40 overflow-hidden hover:shadow-blue-500/20 hover:scale-105 transition-transform"
+          >
+            <div class="h-32 md:h-36 flex items-center justify-center p-2">
+              <img src="assets/icons/nextcloud.jpg" alt="Nextcloud" class="max-h-full object-contain rounded-lg">
+            </div>
+            <div class="text-center bg-black/50 text-white py-1 font-semibold text-sm">
+              Nextcloud
+            </div>
+          </a>
+
+          <!-- Card 3 -->
+          <a
+            href="https://tailscale.com/"
+            target="_blank"
+            class="md:col-span-2 w-full sm:w-40 md:w-44 bg-gray-800 rounded-2xl shadow-lg shadow-black/40 overflow-hidden hover:shadow-blue-500/20 hover:scale-105 transition-transform"
+          >
+            <div class="h-32 md:h-36 flex items-center justify-center p-2">
+              <img src="assets/icons/tailscale.jpg" alt="Tailscale VPN Client" class="max-h-full object-contain rounded-lg">
+            </div>
+            <div class="text-center bg-black/50 text-white py-1 font-semibold text-sm">
+              Tailscale VPN Client
+            </div>
+          </a>
+
+          <!-- Card 4 -->
+          <a
+            href="https://www.vaultwarden.net/"
+            target="_blank"
+            class="md:col-span-2 w-full sm:w-40 md:w-44 bg-gray-800 rounded-2xl shadow-lg shadow-black/40 overflow-hidden hover:shadow-blue-500/20 hover:scale-105 transition-transform"
+          >
+            <div class="h-32 md:h-36 flex items-center justify-center p-2">
+              <img src="assets/icons/vaultwarden.jpg" alt="VaultWarden" class="max-h-full object-contain rounded-lg">
+            </div>
+            <div class="text-center bg-black/50 text-white py-1 font-semibold text-sm">
+              VaultWarden
+            </div>
+          </a>
+
+            <!-- Card 5 -->
+          <a
+            href="https://www.docker.com/"
+            target="_blank"
+            class="md:col-span-2 w-full sm:w-40 md:w-44 bg-gray-800 rounded-2xl shadow-lg shadow-black/40 overflow-hidden hover:shadow-blue-500/20 hover:scale-105 transition-transform"
+          >
+            <div class="h-32 md:h-36 flex items-center justify-center p-2">
+              <img src="assets/icons/docker.jpg" alt="Docker" class="max-h-full object-contain rounded-lg">
+            </div>
+            <div class="text-center bg-black/50 text-white py-1 font-semibold text-sm">
+              Docker
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
 </body>
 </html>
