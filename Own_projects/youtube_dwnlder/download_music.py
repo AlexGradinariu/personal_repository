@@ -1,4 +1,4 @@
-import os
+import os,sys
 import yt_dlp
 import itertools
 
@@ -45,7 +45,7 @@ def process_requests(file_path):
         else:
             print("No URLs to process.")
 
-def get_others(url_site,output_dir):
+def get_videos(url_site,output_dir):
     os.makedirs(output_dir, exist_ok=True)
     ydl_opts = {
         'outtmpl': os.path.join(output_dir, "%(title)s.%(ext)s"),
@@ -60,8 +60,19 @@ if __name__ == "__main__":
     # REQUEST_FILE = r"E:\test.txt"
     # LIBRARY_DIR = r"E:\youtube_music"
     # process_requests(REQUEST_FILE)
-    url = input('Enter YouTube URL: ')
-    # download_youtube_mp3(url, r".")
-    get_others(url,".")
+    try:
+        argument = sys.argv[1]
+    except IndexError as e:
+        print("Introduce an argument -> 'music' or 'video' ")
+        sys.exit(1)
+    if str(argument) == 'video':
+        url = input('Enter video URL: ')
+        get_videos(url,".")
+    elif str(argument) == 'music':
+        url = input('Enter music URL: ')
+        download_youtube_mp3(url, r".")
+    else:
+        print("Introduce an argument -> 'music' or 'video' ")
+        sys.exit(1)
 
 
