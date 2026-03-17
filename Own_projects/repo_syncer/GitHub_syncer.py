@@ -42,7 +42,7 @@ def run_git(cmd, cwd):
         logger.error(f"Git command failed: {' '.join(cmd)}")
         logger.error(f"STDOUT: {e.stdout}")
         logger.error(f"STDERR: {e.stderr}")
-        return False
+        raise
 
 def clone_target_github_repo(project, branch="main"):
     current_dir = os.getcwd()
@@ -89,7 +89,6 @@ def add_and_fetch_github_source_repo(project,commit_hash):
     return True
 
 def cherry_pick_source_commit_hash(commit_hash, folder_path):
-
     logger.info(f"Cherry-picking commit {commit_hash}")
     try:
         subprocess.run(
@@ -125,7 +124,6 @@ def run_script(entry_gtr, entry_gtb, entry_gsr, entry_gsc):
     github_source_commit = entry_gsc.get().strip()
 
     try:
-        print(github_target_repo,github_target_branch,github_source_repo,github_source_commit)
         clone_target_github_repo(github_target_repo, github_target_branch)
         add_and_fetch_github_source_repo(github_source_repo, github_source_commit)
         messagebox.showinfo("Success", "Operation completed successfully")
