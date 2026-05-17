@@ -8,9 +8,9 @@
 
 
 // ── Config ─────────────────────────
-const char* ssid = "Gradinariu_wifi24";
-const char* password = "Gradinariu@net";
-const char* mqtt_server = "192.168.50.64";
+const char* ssid = "Lita_Edi_Parter";
+const char* password = "Ilinca20";
+const char* mqtt_server = "192.168.20.189";
 const char* mqtt_pub_topic = "read/sensor";
 const char* mqtt_sub_topic = "home/sensor/cmd";
 
